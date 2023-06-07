@@ -5,6 +5,10 @@ using DesignPatterns.AbstractFactory;
 using DesignPatterns.Builder;
 //Factory Method Design Pattern
 using DesignPatterns.Factory;
+//Prototype Design Pattern
+using DesignPatterns.Prototype;
+//Singleton Design Pattern
+using DesignPatterns.Singleton;
 
 // Abstract Factory Design Pattern 
 Console.WriteLine("-----Abstract Design Pattern-----");
@@ -41,5 +45,29 @@ foreach(var presentation in presentations)
     Console.WriteLine();
 }
 
+//Prototype Design Pattern
+Console.WriteLine("\n-----Prototype Design Pattern-----");
+ColorManager colormanger = new ColorManager();
+colormanger["red"] = new Color(255, 0, 0);
+colormanger["peace"] = new Color(255,255,255);
+
+Color? color1 = colormanger["peace"].Clone() as Color;
+
+//Singleton Design Pattern
+Console.WriteLine("\n-----Singleton Design Pattern-----");
+var b1 = LoadBalancer.GetLoadBalancer();
+var b2 = LoadBalancer.GetLoadBalancer();
+
+if(b1 == b2)
+{
+    Console.WriteLine("Same Instance");
+}
+
+LoadBalancer loadBalancer = LoadBalancer.GetLoadBalancer();
+for(int i = 0; i < 10; i++)
+{
+    string serverName = loadBalancer.NextServer.Name;
+    Console.WriteLine("Dispatch request to: " + serverName);
+}
 
 Console.ReadLine();
